@@ -18,8 +18,8 @@ pub struct Args {
     #[arg(short, long, default_value_t = false)]
     pub all: bool,
     /// Execute particular day between 1..25
-    #[arg(short, long)]
-    pub day: Option<usize>,
+    #[arg(short, long, value_delimiter = ' ', num_args=0..=2)]
+    pub day: Option<Vec<u8>>,
     /// Execute last solution
     #[arg(short, long, default_value_t = true)]
     pub last: bool,
@@ -28,7 +28,7 @@ fn main() {
     let args = Args::parse();
 
     if let Some(day) = args.day {
-        if matches!(day, 1..=25) {
+        if !day.is_empty() && matches!(day[0], 1..=25) {
             run(Selector::One(day));
             return;
         }

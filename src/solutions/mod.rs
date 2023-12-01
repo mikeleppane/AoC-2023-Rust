@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::Selector;
-use aoc_2023_rust::{run_solution, Runner};
+use aoc_2023_rust::{run_solution, run_solution_with_part, Runner};
 use day01::Day01;
 
 mod day01;
@@ -24,9 +24,13 @@ pub fn run(which: Selector) {
                 run_solution(*d);
             }
         }
-        Selector::One(num) => {
-            if let Some(d) = days.get_mut(&(num as u8)) {
-                run_solution(*d);
+        Selector::One(day) => {
+            if day.len() == 1 {
+                if let Some(d) = days.get_mut(&{ day[0] }) {
+                    run_solution(*d);
+                }
+            } else if let Some(d) = days.get_mut(&{ day[0] }) {
+                run_solution_with_part(*d, day[1]);
             }
         }
     }

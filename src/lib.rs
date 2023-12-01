@@ -11,7 +11,7 @@ pub use point::*;
 
 pub enum Selector {
     All,
-    One(usize),
+    One(Vec<u8>),
     Last,
 }
 
@@ -58,6 +58,27 @@ pub fn run_solution<T: Runner + ?Sized>(solution: &mut T) {
     let p2 = solution.part2();
     let p2_time = start.elapsed();
     print_solution(2, &p2, p2_time);
+}
+
+pub fn run_solution_with_part<T: Runner + ?Sized>(solution: &mut T, part: u8) {
+    let name = solution.name();
+    println!("---- {}, Day {}, Part {} ----", name.0, name.1, part);
+
+    let start = Instant::now();
+    solution.parse(None);
+    let parse_time = start.elapsed().as_millis();
+    println!("{:3}.{:05} Parsing", parse_time / 1000, parse_time % 1000);
+
+    match part {
+        1 => {
+            let start = Instant::now();
+            let p1 = solution.part1();
+            let p1_time = start.elapsed();
+            print_solution(1, &p1, p1_time);
+        }
+        2 => {}
+        _ => eprintln!("Invalid part: {}", part),
+    }
 }
 
 fn print_solution(which: usize, output: &[String], duration: Duration) {
