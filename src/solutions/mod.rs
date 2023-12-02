@@ -3,14 +3,18 @@ use std::collections::HashMap;
 use crate::Selector;
 use aoc_2023_rust::{run_solution, run_solution_with_part, Runner};
 use day01::Day01;
+use day02::Day02;
 
 mod day01;
+mod day02;
 
 pub fn run(which: Selector) {
     let mut day01 = Day01::new();
+    let mut day02 = Day02::new();
 
     let mut days: HashMap<u8, &mut dyn Runner> = HashMap::new();
     days.insert(1, &mut day01);
+    days.insert(2, &mut day02);
 
     match which {
         Selector::Last => {
