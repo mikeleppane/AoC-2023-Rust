@@ -11,6 +11,12 @@ pub struct Point<T> {
     pub y: T,
 }
 
+impl<T> Point<T> {
+    pub fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
 impl<T: AddAssign> AddAssign for Point<T> {
     fn add_assign(&mut self, other: Self) {
         self.x += other.x;
