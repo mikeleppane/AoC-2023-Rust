@@ -12,6 +12,16 @@ cargo run --release -- --all
 cargo run --release -- --day 1
 ```
 
+To run part 1 or 2 of a day, add the part number as a second argument:
+
+```bash
+cargo run --release -- --day 1 1
+```
+
+```bash
+cargo run --release -- --day 1 2
+```
+
 ```bash
 cargo run --release -- --last
 ```
