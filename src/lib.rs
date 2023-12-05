@@ -76,7 +76,12 @@ pub fn run_solution_with_part<T: Runner + ?Sized>(solution: &mut T, part: u8) {
             let p1_time = start.elapsed();
             print_solution(1, &p1, p1_time);
         }
-        2 => {}
+        2 => {
+            let start = Instant::now();
+            let p2 = solution.part2();
+            let p2_time = start.elapsed();
+            print_solution(2, &p2, p2_time);
+        }
         _ => eprintln!("Invalid part: {}", part),
     }
 }
