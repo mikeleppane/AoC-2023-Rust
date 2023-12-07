@@ -36,10 +36,7 @@ impl Runner for Day02 {
             self.games
                 .iter()
                 .filter(|g| g.is_possible())
-                .map(|g| {
-                    dbg!(g.id);
-                    g.id as u32
-                })
+                .map(|g| g.id as u32)
                 .sum::<u32>(),
         )
     }
