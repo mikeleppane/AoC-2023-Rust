@@ -143,7 +143,7 @@ pub fn read_lines<T: AsRef<Path>>(pathname: T) -> Vec<String> {
     read_to_string(pathname)
         .expect("unable to open file")
         .split('\n')
-        .filter(|s| !s.is_empty())
+        .filter(|s| !s.trim().is_empty())
         .map(|s| s.to_string())
         .collect()
 }
