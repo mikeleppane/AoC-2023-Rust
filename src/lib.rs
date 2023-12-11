@@ -1,10 +1,10 @@
+use colored::*;
+use itertools::Itertools;
 use std::fmt::{Debug, Display};
 use std::fs::read_to_string;
 use std::path::Path;
 use std::str::FromStr;
 use std::time::{Duration, Instant};
-
-use itertools::Itertools;
 
 mod point;
 pub use point::*;
@@ -42,12 +42,25 @@ pub fn output<T: Display>(output: T) -> Vec<String> {
 
 pub fn run_solution<T: Runner + ?Sized>(solution: &mut T) {
     let name = solution.name();
-    println!("---- {}, Day {} ----", name.0, name.1);
+
+    println!(
+        "\n{}{}{}{}{}",
+        "---- ".green().bold(),
+        name.0.to_string().green().bold(),
+        ", Day ".green().bold(),
+        name.1.to_string().green().bold(),
+        " ----".green().bold(),
+    );
 
     let start = Instant::now();
     solution.parse(None);
     let parse_time = start.elapsed().as_millis();
-    println!("{:3}.{:05} Parsing", parse_time / 1000, parse_time % 1000);
+    println!(
+        "\t{}{:3}.{:05} seconds",
+        "Parsing execution time: ".blue().bold(),
+        parse_time / 1000,
+        parse_time % 1000
+    );
 
     let start = Instant::now();
     let p1 = solution.part1();
@@ -93,8 +106,12 @@ fn print_solution(which: usize, output: &[String], duration: Duration) {
 
     let mut i = output.iter();
     println!(
-        "{sec_part:3}.{ms_part:04} Part {which}: {}",
-        i.next().unwrap()
+        "\t{}{}{}{}{}{sec_part:3}.{ms_part:04} seconds",
+        "Part ".blue().bold(),
+        which.to_string().blue().bold(),
+        " - solution: ".blue().bold(),
+        i.next().unwrap(),
+        ", execution time:".blue().bold(),
     );
     for line in i {
         println!("{:16}{line}", "");
@@ -142,6 +159,15 @@ where
 pub fn read_lines<T: AsRef<Path>>(pathname: T) -> Vec<String> {
     read_to_string(pathname)
         .expect("unable to open file")
+        .split('\n')
+        .filter(|s| !s.trim().is_empty())
+        .map(|s| s.to_string())
+        .collect()
+}
+
+pub fn read_lines_from_string<T: AsRef<str>>(input: T) -> Vec<String> {
+    input
+        .as_ref()
         .split('\n')
         .filter(|s| !s.trim().is_empty())
         .map(|s| s.to_string())

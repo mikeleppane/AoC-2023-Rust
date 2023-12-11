@@ -11,6 +11,12 @@ pub struct Point<T> {
     pub y: T,
 }
 
+impl std::fmt::Display for Point<i32> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Point (x: {}, y: {})", self.x, self.y)
+    }
+}
+
 impl<T> Point<T> {
     pub fn new(x: T, y: T) -> Self {
         Self { x, y }
@@ -21,6 +27,17 @@ impl<T: AddAssign> AddAssign for Point<T> {
     fn add_assign(&mut self, other: Self) {
         self.x += other.x;
         self.y += other.y;
+    }
+}
+
+impl<T: Add<Output = T>> Add for Point<T> {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
     }
 }
 
