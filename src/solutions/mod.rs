@@ -16,6 +16,7 @@ use day11::Day11;
 use day12::Day12;
 use day13::Day13;
 use day14::Day14;
+use day15::Day15;
 
 mod day01;
 mod day02;
@@ -31,6 +32,7 @@ mod day11;
 mod day12;
 mod day13;
 mod day14;
+mod day15;
 
 pub fn run(which: Selector) {
     let mut day01 = Day01::new();
@@ -47,6 +49,7 @@ pub fn run(which: Selector) {
     let mut day12 = Day12::new();
     let mut day13 = Day13::new();
     let mut day14 = Day14::new();
+    let mut day15 = Day15::new();
 
     let mut days: HashMap<u8, &mut dyn Runner> = HashMap::new();
     days.insert(1, &mut day01);
@@ -63,6 +66,7 @@ pub fn run(which: Selector) {
     days.insert(12, &mut day12);
     days.insert(13, &mut day13);
     days.insert(14, &mut day14);
+    days.insert(15, &mut day15);
 
     match which {
         Selector::Last => {
